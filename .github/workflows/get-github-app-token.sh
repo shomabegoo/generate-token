@@ -46,4 +46,4 @@ token=$(jq .token -r <<<"$(curl --location -g -s \
   --header "Authorization: Bearer ${signed_content}.${sig}" \
   -d "{\"repository_ids\":[$repo_id]}")")
 
-echo "$unscoped_token"
+echo "$token"
