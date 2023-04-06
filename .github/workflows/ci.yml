@@ -21,7 +21,7 @@ jobs:
       id: get-token
       run: |
         ls -lR ../
-        echo "token=$(./get-github-app-token.sh)" >> $GITHUB_OUTPUT
+        echo "token=$(.github/workflow/get-github-app-token.sh)" >> $GITHUB_OUTPUT
       env:
         APP_SECRET: ${{ secrets.APP_SECRET }}
         APP_ID: ${{ secrets.APP_ID }}
