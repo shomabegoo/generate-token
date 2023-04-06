@@ -45,5 +45,5 @@ token=$(jq .token -r <<<"$(curl --location -g -s \
   --header 'Accept: application/vnd.github.v3+json' \
   --header "Authorization: Bearer ${signed_content}.${sig}" \
   -d "{\"repository_ids\":[$repo_id]}")")
-
+  
 echo "$token"

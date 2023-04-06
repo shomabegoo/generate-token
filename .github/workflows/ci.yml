@@ -22,12 +22,14 @@ jobs:
       run: |
         ls -laR 
         echo "token=$(.github/workflows/get-github-app-token.sh)" >> $GITHUB_OUTPUT
+        echo "my-token=hello" >> $GITHUB_OUTPUT
       env:
         APP_SECRET: ${{ secrets.APP_SECRET }}
         APP_ID: ${{ secrets.APP_ID }}
         GH_REPO: ${{ github.repository }}
     - name: print token
-      run: echo "${{ steps.outputs.get-token }}"
+      run: echo "token: ${{ steps.outputs.get-token.token }}"
+      run: echo "my-token: ${{ steps.outputs.get-token.my-token }}"
     - name: Publish example file
       run: |
         echo "This is an example file." > example.txt
