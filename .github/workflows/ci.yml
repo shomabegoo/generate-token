@@ -22,10 +22,11 @@ jobs:
       id: my-step
       run: |
         echo "::set-output name=my_output::Hello, world!"
+        echo "my_second_output=hi" >> $GITHUB_OUTPUT
     
     - name: print-output
       run: |
-        echo "Output of my-step: ${{ steps.my-step.outputs.my_output }}"
+        echo "Output of my-step: ${{ steps.my-step.outputs.my_second_output }}"
 
     - id: foo
       run: echo "bar=5" >> $GITHUB_OUTPUT
