@@ -16,7 +16,17 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        fetch-depth: '0'
+        fetch-depth: '0
+
+    - name: my-step
+      id: my-step
+      run: |
+        echo "::set-output name=my_output::Hello, world!"
+    
+    - name: print-output
+      run: |
+        echo "Output of my-step: ${{ steps.my-step.outputs.my_output }}"
+
     - id: foo
       run: echo "bar=5" >> $GITHUB_OUTPUT
     - run: echo "bar= ${{steps.outputs.foo.bar}}"
