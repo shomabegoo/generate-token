@@ -28,12 +28,21 @@ jobs:
         GH_REPO: ${{ github.repository }}
     - name: print token
       run: echo "${{ steps.outputs.get-token }}"
+    - name: Publish example file
+      run: |
+        echo "This is an example file." > example.txt
+        git config --global user.email "actions@github.com"
+        git config --global user.name "GitHub Actions"
+        git checkout -b my-feature-branch
+        git add example.txt
+        git commit -m "Add example file"
+        git push origin my-feature-branch  
     - name: Create PR
       run: |
         gh pr create \
           --title "New feature" \
           --body "This pull request adds a new feature" \
           --base main \
-          --head feature-branch
+          --head my-feature-branch
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
