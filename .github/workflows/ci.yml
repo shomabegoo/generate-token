@@ -36,7 +36,7 @@ jobs:
         git checkout -b my-feature-branch
         git add example.txt
         git commit -m "Add example file"
-        git push origin my-feature-branch  
+        git push origin my-feature-branch --force
     - name: Create PR
       run: |
         gh pr create \
