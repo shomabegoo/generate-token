@@ -37,6 +37,8 @@ jobs:
         git add example.txt
         git commit -m "Add example file"
         git push origin my-feature-branch --force
+      env:
+        GITHUB_TOKEN: ${{ steps.get-token.outputs.token }}
     - name: Create PR
       run: |
         gh pr create \
