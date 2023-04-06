@@ -1,0 +1,23 @@
+name: CI
+'on':
+  workflow_dispatch: {}
+  release:
+    types:
+    - published
+  push:
+    branches:
+    - main
+  pull_request: {}
+  create: {}
+jobs:
+  get-token:
+    - name: Get Token
+      id: get-token
+      run: echo "::set-output name=token::$(./get-github-app-token.sh)"
+      env:
+        APP_SECRET: ${{ secrets.APP_SECRET }}
+        APP_ID: ${{ secrets.APP_ID }}
+        GH_REPO: ${{ github.repository }}
+  use-token:
+    - name: print token
+      run: echo "${{ steps.outputs.get-token }}"
