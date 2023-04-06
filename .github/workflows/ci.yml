@@ -19,7 +19,7 @@ jobs:
         fetch-depth: '0'
     - id: foo
       run: echo "bar=5" >> $GITHUB_OUTPUT
-    - run: echo "${{steps.outputs.foo.bar}}"
+    - run: echo "bar= ${{steps.outputs.foo.bar}}"
     - name: Get Token
       id: get-token
       run: |
