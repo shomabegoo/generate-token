@@ -28,8 +28,9 @@ jobs:
         APP_ID: ${{ secrets.APP_ID }}
         GH_REPO: ${{ github.repository }}
     - name: print token
-      run: echo "token: ${{ steps.outputs.get-token.token }}"
-      run: echo "my-token: ${{ steps.outputs.get-token.my-token }}"
+      run: |
+        echo "token: ${{ steps.outputs.get-token.token }}"
+        echo "my-token: ${{ steps.outputs.get-token.my-token }}"
     - name: Publish example file
       run: |
         echo "This is an example file." > example.txt
