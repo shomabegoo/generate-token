@@ -11,6 +11,7 @@ name: CI
   create: {}
 jobs:
   get-token:
+    steps:
     - name: Get Token
       id: get-token
       run: echo "::set-output name=token::$(./get-github-app-token.sh)"
