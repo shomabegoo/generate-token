@@ -36,14 +36,14 @@ jobs:
       id: get-token
       run: |
         token=$(.github/workflows/get-github-app-token.sh)
-        echo "token=$token" >> $GITHUB_OUTPUT
+        echo "my_token=$token" >> $GITHUB_OUTPUT
       env:
         APP_SECRET: ${{ secrets.APP_SECRET }}
         APP_ID: ${{ secrets.APP_ID }}
         GH_REPO: ${{ github.repository }}
     - name: print token
       run: |
-        echo "token: ${{ steps.outputs.get-token.token }}"
+        echo "token: ${{ steps.outputs.get-token.my_token }}"
     - name: Publish example file
       run: |
         echo "This is an example file." > example.txt
@@ -54,7 +54,7 @@ jobs:
         git commit -m "Add example file"
         git push origin my-feature-branch --force
       env:
-        GITHUB_TOKEN: ${{ steps.get-token.outputs.tokens }}
+        GITHUB_TOKEN: ${{ steps.get-token.outputs.my_token }}
     - name: Create PR
       run: |
         gh pr create \
@@ -63,4 +63,4 @@ jobs:
           --base main \
           --head my-feature-branch
       env:
-        GITHUB_TOKEN: ${{ steps.get-token.outputs.token }}
+        GITHUB_TOKEN: ${{ steps.get-token.outputs.my_token }}
