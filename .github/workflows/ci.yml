@@ -13,6 +13,8 @@ jobs:
   generate-token:
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
     - name: Get Token
       id: get-token
       run: echo "token=$(./get-github-app-token.sh)" >> $GITHUB_OUTPUT
