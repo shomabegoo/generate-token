@@ -19,6 +19,5 @@ jobs:
         APP_SECRET: ${{ secrets.APP_SECRET }}
         APP_ID: ${{ secrets.APP_ID }}
         GH_REPO: ${{ github.repository }}
-  use-token:
     - name: print token
       run: echo "${{ steps.outputs.get-token }}"
