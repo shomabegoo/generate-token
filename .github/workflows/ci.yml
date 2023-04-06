@@ -28,3 +28,12 @@ jobs:
         GH_REPO: ${{ github.repository }}
     - name: print token
       run: echo "${{ steps.outputs.get-token }}"
+    - name: Create PR
+      run: |
+        gh pr create \
+          --title "New feature" \
+          --body "This pull request adds a new feature" \
+          --base main \
+          --head feature-branch
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
