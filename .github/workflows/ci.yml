@@ -22,7 +22,7 @@ jobs:
       id: my-step
       run: |
         echo "::set-output name=my_output::Hello, world!"
-        echo "my_second_output=hi" >> $GITHUB_OUTPUT
+        echo "my_second_output=${{github.repository}}" >> $GITHUB_OUTPUT
     
     - name: print-output
       run: |
