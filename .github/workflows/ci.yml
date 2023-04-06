@@ -10,7 +10,8 @@ name: CI
   pull_request: {}
   create: {}
 jobs:
-  get-token:
+  generate-token:
+    runs-on: ubuntu-latest
     steps:
     - name: Get Token
       id: get-token
