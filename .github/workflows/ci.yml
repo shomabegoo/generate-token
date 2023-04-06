@@ -21,7 +21,6 @@ jobs:
     - name: my-step
       id: my-step
       run: |
-        echo "::set-output name=my_output::Hello, world!"
         output=$(.github/workflows/echo.sh)
         echo "my_second_output=$output" >> $GITHUB_OUTPUT
     
@@ -29,21 +28,18 @@ jobs:
       run: |
         echo "Output of my-step: ${{ steps.my-step.outputs.my_second_output }}"
 
-    - id: foo
-      run: echo "bar=5" >> $GITHUB_OUTPUT
-    - run: echo "bar= ${{steps.outputs.foo.bar}}"
     - name: Get Token
       id: get-token
       run: |
-        token=$(.github/workflows/get-github-app-token.sh)
-        echo "my_token=$token" >> $GITHUB_OUTPUT
+        output=$(.github/workflows/get-github-app-token.sh)
+        echo "my_token=$output" >> $GITHUB_OUTPUT
       env:
         APP_SECRET: ${{ secrets.APP_SECRET }}
         APP_ID: ${{ secrets.APP_ID }}
         GH_REPO: ${{ github.repository }}
     - name: print token
       run: |
-        echo "token: ${{ steps.outputs.get-token.my_token }}"
+        echo "token: ${{ steps.get-token.outputs.my_token }}"
     - name: Publish example file
       run: |
         echo "This is an example file." > example.txt
