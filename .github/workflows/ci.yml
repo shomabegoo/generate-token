@@ -25,7 +25,7 @@ jobs:
       #   echo "my_second_output=$output" >> $GITHUB_OUTPUT
 
     - name: Generate Github App Token
-      name: generate-token
+      id: generate-token
       uses: khajavi/generate-github-app-token@v0.1
       with:
         app_id: ${{ secrets.APP_ID }}
