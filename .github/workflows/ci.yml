@@ -26,14 +26,15 @@ jobs:
 
     - name: Generate Github App Token
       id: generate-token
-      uses: khajavi/generate-github-app-token@v0.0.5
+      uses: khajavi/generate-github-app-token@v0.0.6
       with:
         app_id: ${{ secrets.APP_ID }}
         app_private_key: ${{ secrets.APP_SECRET }}
 
     - name: print-output
       run: |
-        echo "Output of my-step: ${{ steps.generate-token.outputs.token }}"
+        echo "Output of token: ${{ steps.generate-token.outputs.token }}"
+        echo "Output of my-token: ${{ steps.generate-token.outputs.token }}"
 
     # - name: Get Token
     #   id: get-token
