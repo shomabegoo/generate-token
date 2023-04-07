@@ -18,31 +18,38 @@ jobs:
       with:
         fetch-depth: '0'
 
-    - name: my-step
-      id: my-step
-      run: |
-        output=$(.github/workflows/echo.sh)
-        echo "my_second_output=$output" >> $GITHUB_OUTPUT
-    
+    # - name: my-step
+      # id: my-step
+      # run: |
+      #   output=$(.github/workflows/echo.sh)
+      #   echo "my_second_output=$output" >> $GITHUB_OUTPUT
+
+    - name: Generate Github App Token
+      name: generate-token
+      uses: khajavi/generate-github-app-token@v0.1
+      with:
+        app_id: ${{ secrets.APP_ID }}
+        app_private_key: ${{ secrets.APP_SECRET }}
+
     - name: print-output
       run: |
-        echo "Output of my-step: ${{ steps.my-step.outputs.my_second_output }}"
+        echo "Output of my-step: ${{ steps.generate-token.outputs.token }}"
 
-    - name: Get Token
-      id: get-token
-      run: |
-        output=$(.github/workflows/get-github-app-token.sh)
-        echo "my_token=$output" >> $GITHUB_OUTPUT
-      env:
-        APP_SECRET: ${{ secrets.APP_SECRET }}
-        APP_ID: ${{ secrets.APP_ID }}
-        GH_REPO: ${{ github.repository }}
+    # - name: Get Token
+    #   id: get-token
+    #   run: |
+    #     output=$(.github/workflows/get-github-app-token.sh)
+    #     echo "my_token=$output" >> $GITHUB_OUTPUT
+    #   env:
+    #     APP_SECRET: ${{ secrets.APP_SECRET }}
+    #     APP_ID: ${{ secrets.APP_ID }}
+    #     GH_REPO: ${{ github.repository }}
     - name: print token
       run: |
-        echo "token: ${{ steps.get-token.outputs.my_token }}"
+        echo "token: ${{ steps.generate-token.outputs.token }}"
     - name: Publish example file
       env:
-        GH_TOKEN: ${{ steps.get-token.outputs.my_token }}
+        GH_TOKEN: ${{ steps.generate-token.outputs.token }}
       run: |
         echo "This is an example file." > example.txt
         git config --global user.email "actions@github.com"
@@ -53,7 +60,7 @@ jobs:
         git push origin my-feature-branch --force
     - name: Create PR
       env:
-        GH_TOKEN: ${{ steps.get-token.outputs.my_token }}
+        GH_TOKEN: ${{ steps.generate-token.outputs.token }}
       run: |
         gh pr create \
           --title "New feature" \
